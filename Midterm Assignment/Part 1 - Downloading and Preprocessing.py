@@ -258,9 +258,11 @@ def validate_year(year):
         year = int(year)
     except:
         print('Cannot Parse Year to Integer')
+        exit(0)
 
     if not year in [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017]:
         print('Data unavailabale for the requested year')
+        exit(0)
     else:
         return year
 
