@@ -1,0 +1,3 @@
+python Part2.py upload_to_s3 --local-scheduler --awsaccess <value> --awssecret <value> --inputLocation <value>
+
+docker run tiwariabhi/final-project-p2 python /src/Part2.py upload_to_s3 --local-scheduler --awsaccess <value> --awssecret <value> --inputLocation <value>
