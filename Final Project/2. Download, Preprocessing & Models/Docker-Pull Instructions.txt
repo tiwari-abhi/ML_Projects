@@ -1,2 +1,0 @@
-1. Pull Command : docker pull tiwariabhi/final-project-p1
-2. Run Command : docker run tiwariabhi/final-project-p1 python /src/Part1.py <BucketLocation> <AWS Access> <AWS Secret>
