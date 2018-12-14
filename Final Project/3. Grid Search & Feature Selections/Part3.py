@@ -79,9 +79,6 @@ class preprocess_data(luigi.Task):
         numericalFeatureNames = ["atemp", "humidity", "windspeed"]
         dropFeatures = ["casual", "datetime", "date", "registered", "temp"]
 
-        # for var in categoricalFeatureNames:
-        #     data[var] = data[var].astype("category")
-
         dataTrain = data[pd.notnull(data['count'])].sort_values(by=["datetime"])
         dataTest = data[~pd.notnull(data['count'])].sort_values(by=["datetime"])
 
@@ -263,7 +260,7 @@ class upload_to_s3(luigi.Task):
         awssecret = self.awssecret
         inputLocation = self.inputLocation
 
-        loaded_model = pickle.load(open('Finalized_Model_RF.pkl', 'rb'))
+        # loaded_model = pickle.load(open('Finalized_Model_RF.pkl', 'rb'))
 
         try:
             conn = boto.connect_s3(awsaccess,awssecret)
@@ -296,15 +293,15 @@ class upload_to_s3(luigi.Task):
         try:
             ts = time.time()
             st = datetime.datetime.fromtimestamp(ts)
-            bucket_name = 'finalprojectpart2' + str(st).replace(" ", "").replace("-", "").replace(":", "").replace(".","")
+            bucket_name = 'finalprojectpart3' + str(st).replace(" ", "").replace("-", "").replace(":", "").replace(".","")
             bucket = conn.create_bucket(bucket_name, location=loc)
 
             print("bucket created")
             s3 = boto3.client('s3', aws_access_key_id=awsaccess, aws_secret_access_key=awssecret)
 
             print('s3 client created')
-            s3.upload_file(tune_model().output().path, bucket_name,'Summary of Tuning.csv')
-            s3.upload_file(tune_model().output().path, bucket_name,'Finalized_Model_RF.pkl')
+            s3.upload_file(os.getcwd() +'\\'+'Summary of Tuning.csv', bucket_name, 'Summary of Tuning.csv')
+            s3.upload_file(os.getcwd() +'\\'+ 'Finalized_Model_RF.pkl', bucket_name,'Finalized_Model_RF.pkl')
 
             print("File successfully uploaded to S3", 'Summary of Tuning.csv', bucket)
             print("File successfully uploaded to S3", 'Finalized_Model_RF.pkl', bucket)
