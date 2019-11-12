@@ -1,4 +1,4 @@
-# ADS_FALL2018
+# ML_Projects
 This repository contains projects for the Advanced Data Science class in Fall 2018.
 
 **1. Data Visualization** <br />
